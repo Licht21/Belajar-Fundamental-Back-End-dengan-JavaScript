@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 class UploadsHandler {
   constructor(service, validator) {
     this._service = service;
@@ -11,12 +12,12 @@ class UploadsHandler {
 
     this._validator.validateImageHeaders(data.hapi.headers);
 
-    const filename = await this._service.writeFile(data, data.hapi);
+    const fileLocation = await this._service.writeFile(data, data.hapi);
 
     return h.response({
       status: 'success',
       data: {
-        fileLocation: `http://${process.env.HOST}:${process.env.PORT}/upload/images/${filename}`,
+        fileLocation,
       },
     }).code(201);
   }
